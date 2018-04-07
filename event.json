@@ -1,0 +1,70 @@
+{
+  "version": "1.0",
+  "session": {
+    "new": false,
+    "sessionId": "amzn1.echo-api.session.66b42471-0f59-4fd2-aabf-f2980b09e830",
+    "application": {
+      "applicationId": "amzn1.ask.skill.a6c7f4da-789b-4fc4-9b19-c17c7f4eee36"
+    },
+    "attributes": {
+      "explain": 1,
+      "number": 8,
+      "round": 1,
+      "question": 3,
+      "answer": 64,
+      "data": "<say-as interpret-as='interjection'>aiyo!</say-as>34 is wrong. <s>The square of 9 is 81. </s>",
+      "current_player": 4,
+      "players": 3,
+      "STATE": "_GUESSMODE",
+      "points": "[null,null,2,2,2]"
+    },
+    "user": {
+      "userId": "amzn1.ask.account.AFETYG2U6UWU7YC4W5CK3ZUF5Q4A54RXVUUEJ33N6UDL3EY43ETDWDDDW2AIIRAARWIP6C6WP7SXLFNOPZTERDVHCOQ2I2AN2T3DUKF5WFRVM3VQZQYUIIT5EFIYWYNZY5OWBPCL23BJ2VIYMWAZM2OVPYWBMDUSRP7AXUHTYZA2KL2ST3YMPC2CXIJGNRL57RQSQOXJLJ3YKKQ"
+    }
+  },
+  "context": {
+    "AudioPlayer": {
+      "playerActivity": "IDLE"
+    },
+    "Display": {
+      "token": ""
+    },
+    "System": {
+      "application": {
+        "applicationId": "amzn1.ask.skill.a6c7f4da-789b-4fc4-9b19-c17c7f4eee36"
+      },
+      "user": {
+        "userId": "amzn1.ask.account.AFETYG2U6UWU7YC4W5CK3ZUF5Q4A54RXVUUEJ33N6UDL3EY43ETDWDDDW2AIIRAARWIP6C6WP7SXLFNOPZTERDVHCOQ2I2AN2T3DUKF5WFRVM3VQZQYUIIT5EFIYWYNZY5OWBPCL23BJ2VIYMWAZM2OVPYWBMDUSRP7AXUHTYZA2KL2ST3YMPC2CXIJGNRL57RQSQOXJLJ3YKKQ"
+      },
+      "device": {
+        "deviceId": "amzn1.ask.device.AGQ76FSFUJA3FRJ24U2732KITMYYVKR5NYDAEL4HIQT2BG75RIMCG6YZUW6AR5XXREW65ADYPAS4OOHUDY6TCYT5E7PCLDRH6ZXSEELUJOKF7QT2VN4VSYND7M3O76D2OYH3LMUUSQWO7DXWFIGQHF32UGVQ",
+        "supportedInterfaces": {
+          "AudioPlayer": {},
+          "Display": {
+            "templateVersion": "1.0",
+            "markupVersion": "1.0"
+          }
+        }
+      },
+      "apiEndpoint": "https://api.eu.amazonalexa.com",
+      "apiAccessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLmE2YzdmNGRhLTc4OWItNGZjNC05YjE5LWMxN2M3ZjRlZWUzNiIsImV4cCI6MTUyMzEzNDA2MywiaWF0IjoxNTIzMTMwNDYzLCJuYmYiOjE1MjMxMzA0NjMsInByaXZhdGVDbGFpbXMiOnsiY29uc2VudFRva2VuIjpudWxsLCJkZXZpY2VJZCI6ImFtem4xLmFzay5kZXZpY2UuQUdRNzZGU0ZVSkEzRlJKMjRVMjczMktJVE1ZWVZLUjVOWURBRUw0SElRVDJCRzc1UklNQ0c2WVpVVzZBUjVYWFJFVzY1QURZUEFTNE9PSFVEWTZUQ1lUNUU3UENMRFJINlpYU0VFTFVKT0tGN1FUMlZONFZTWU5EN00zTzc2RDJPWUgzTE1VVVNRV083RFhXRklHUUhGMzJVR1ZRIiwidXNlcklkIjoiYW16bjEuYXNrLmFjY291bnQuQUZFVFlHMlU2VVdVN1lDNFc1Q0szWlVGNVE0QTU0UlhWVVVFSjMzTjZVREwzRVk0M0VURFdERERXMkFJSVJBQVJXSVA2QzZXUDdTWExGTk9QWlRFUkRWSENPUTJJMkFOMlQzRFVLRjVXRlJWTTNWUVpRWVVJSVQ1RUZJWVdZTlpZNU9XQlBDTDIzQkoyVklZTVdBWk0yT1ZQWVdCTURVU1JQN0FYVUhUWVpBMktMMlNUM1lNUEMyQ1hJSkdOUkw1N1JRU1FPWEpMSjNZS0tRIn19.QdQq2pMhbEWvaZxVmzNaiWHaRKoLltD_8zy-WPiCckNS4WeqBXxyR0U-WAAUiUI9Mw6Dpr3ve6PhZSRzn3tSZ5uzwgiaJcqhveluXS2GjG3fC8DZU9PmJHoQN1nNHVKNW9PB30NbQs146lyfuVUsLK2zMY8J66H2DxH92l1OrYKyBzvHy5y6Z6ekn8desslUgzHhEWImjVXdk1fB_T7P_MRsUh-F_7lqZepz2BLUzDzXo0QfXbJIGJV0-zJx9Bg9vVevX9cJB436T_k8XkivPuepRpMvFmZKr91s8eZ_DzYeKHV0h8VOrR12Z84R9Br2s2rP2Mxzw4JW3QyJbxmeUg"
+    }
+  },
+  "request": {
+    "type": "IntentRequest",
+    "requestId": "amzn1.echo-api.request.12140474-3a0e-4228-aef2-5afb1773ae9b",
+    "timestamp": "2018-04-07T19:47:43Z",
+    "locale": "en-IN",
+    "intent": {
+      "name": "NumberIntent",
+      "confirmationStatus": "NONE",
+      "slots": {
+        "number": {
+          "name": "number",
+          "value": "9",
+          "confirmationStatus": "NONE"
+        }
+      }
+    }
+  }
+}

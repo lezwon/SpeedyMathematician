@@ -1,13 +1,16 @@
 const Alexa = require('./common_libs').Alexa;
-const states = require('./common_libs').states;
+const STATES = require('./common_libs').STATES;
 const startGameHandlers = require('./startGameHandlers')
 const guessStateHandlers = require('./guessStateHandlers')
 const languageStrings = require('./language_strings')
 
 const handler = {
     'LaunchRequest': function () {
-        this.handler.state = states.STARTMODE;
+        this.handler.state = STATES.STARTMODE;
         this.emitWithState('LaunchRequest');
+    },
+    'AMAZON.StopIntent': function () {
+        this.emitWithState(':tell', this.t('GOODBYE'));
     }
 }
 

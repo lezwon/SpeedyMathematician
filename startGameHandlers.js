@@ -1,8 +1,8 @@
 const Alexa = require('./common_libs').Alexa;
-const states = require('./common_libs').states;
+const STATES = require('./common_libs').STATES;
 
 
-const startGameHandlers = Alexa.CreateStateHandler(states.STARTMODE, {
+const startGameHandlers = Alexa.CreateStateHandler(STATES.STARTMODE, {
     'LaunchRequest': function () {
         this.emit(':ask', this.t('WELCOME') + this.t('READY'), this.t('REPEAT'));
     },
@@ -16,29 +16,28 @@ const startGameHandlers = Alexa.CreateStateHandler(states.STARTMODE, {
 
     'AMAZON.NoIntent': function () {
         this.response.speak('Ok, see you next time!');
-        this.emit(':responseReady');
+        this.handler.state = STATES.FIRST_USE;
+        this.emitWithState('AMAZON.StopIntent');
     },
 
     'NumberIntent': function () {
         const no_of_players = parseInt(this.event.request.intent.slots.number.value);
         this.attributes['players'] = no_of_players;
-        this.handler.state = states.GUESSMODE;
-        this.emitWithState('LaunchRequest');
+        this.handler.state = STATES.GUESSMODE;
+        this.emitWithState('LaunchIntent');
     },
 
     'SessionEndedRequest': function () {
-        console.log('session ended!');
-        this.attributes['endedSessionCount'] += 1;
-        this.handler.state = '' // delete this.handler.state might cause reference errors
+        this.handler.state = STATES.FIRST_USE;
         delete this.attributes['STATE'];
-        this.emit(':saveState', true);
+        this.emitWithState(':saveState', false);
     },
 
     'Unhandled': function () {
         const message = 'Say yes to continue, or no to end the game.';
         this.response.speak(message)
             .listen(message);
-        this.emit(':responseReady');
+        this.emitWithState(':responseReady');
     }
 })
 

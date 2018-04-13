@@ -49,8 +49,7 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.GUESSMODE, {
         this.attributes['mode'] = MODES.EXPLANATION
         this.attributes['current_player'] = 1
 		this.attributes['correct'] = 0
-		let points = {}
-        this.attributes['points'] = JSON.stringify(points);
+        this.attributes['points'] = {};
         this.emit(':ask', this.t('START_GAME') + ' ROUND ' + round +'. '+ this.t('SQUARE'))
     },
 
@@ -58,7 +57,7 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.GUESSMODE, {
         // round, question, player
         let question_no = this.attributes['question']
         let current_player = this.attributes['current_player']
-        var points = this.attributes['points'] ? JSON.parse(this.attributes['points']) : {}
+        var points = this.attributes['points'] ? this.attributes['points'] : {}
         let round_no = this.attributes['round']
 		let prev_was_correct = this.attributes['correct']
         let round_completed_speech = '';
@@ -75,9 +74,9 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.GUESSMODE, {
         if(round_no <= 3){
             if (question_no <= 3) {
                 if (current_player <= this.attributes['players']) {
-                    let number = Math.floor(Math.random() * 10) + 6;
-                    if (number == this.attributes['number'])
-                        number = Math.floor(Math.random() * 10) + 6;
+                    let number = Math.floor(Math.random() * 10) + 10;
+                    while (number == this.attributes['number'])
+                        number = Math.floor(Math.random() * 10) + 10;
 
                     let square = Math.pow(number, 2);
                     let question = util.format(this.t('QUESTION'), question_no, current_player, number);
@@ -106,14 +105,14 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.GUESSMODE, {
             
             let results = calculateResults(points, this.attributes['players']);
 
-            finalScore = this.attributes['finalScore'] ? JSON.parse(this.attributes['finalScore']) : {};
+            finalScore = this.attributes['finalScore'] ? this.attributes['finalScore'] : {};
 
             for(let i = 0; i < results.winners.length; i++){
                 let player = results.winners[i];
                 finalScore[player] = finalScore[player] ? finalScore[player] + 1 : 1
             }
 
-            this.attributes['finalScore'] = JSON.stringify(finalScore)
+            this.attributes['finalScore'] = finalScore
 
             switch (results.type) {
                 case RESULT.SINGLE_WINNER:
@@ -233,7 +232,7 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.GUESSMODE, {
     'NumberIntent': function () {
         const guessNum = parseInt(this.event.request.intent.slots.number.value);
         const targetNum = this.attributes['answer'];
-        var points = this.attributes['points'] ? JSON.parse(this.attributes['points']) : {}
+        var points = this.attributes['points'] ? this.attributes['points'] : {}
         let current_player = parseInt(this.attributes['current_player'].toString()) - 1
 
         this.attributes['guessNumber'] = guessNum;
@@ -243,7 +242,7 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.GUESSMODE, {
 
             points[current_player] = points[current_player] ? points[current_player] + 1 : 1;
 
-            this.attributes['points'] = JSON.stringify(points);
+            this.attributes['points'] = points;
             this.attributes['correct'] = 1
             this.emitWithState('QuestionIntent')
             

@@ -2,24 +2,24 @@
   "version": "1.0",
   "session": {
     "new": false,
-    "sessionId": "amzn1.echo-api.session.923dcfb8-9513-4445-a1f7-3f5cab4d18c2",
+    "sessionId": "amzn1.echo-api.session.04ea12e1-8e00-4cff-af06-8b81f0c570f3",
     "application": {
       "applicationId": "amzn1.ask.skill.a6c7f4da-789b-4fc4-9b19-c17c7f4eee36"
     },
     "attributes": {
-      "finalScore": "{\"1\":2,\"2\":1}",
+      "finalScore": {},
       "question": 3,
-      "correct": 2,
-      "guessNumber": 32,
-      "players": 3,
+      "correct": 1,
+      "guessNumber": 81,
+      "players": 2,
       "solved": false,
       "STATE": "_GUESSMODE",
-      "points": "{\"1\":2,\"3\":1}",
+      "points": "{\"1\":2}",
       "mode": 1,
-      "number": 10,
-      "round": 3,
-      "answer": 100,
-      "current_player": 4
+      "number": 15,
+      "answer": 225,
+      "round": 1,
+      "current_player": 3
     },
     "user": {
       "userId": "amzn1.ask.account.AFETYG2U6UWU7YC4W5CK3ZUF5Q4A54RXVUUEJ33N6UDL3EY43ETDWDDDW2AIIRAARWIP6C6WP7SXLFNOPZTERDVHCOQ2I2AN2T3DUKF5WFRVM3VQZQYUIIT5EFIYWYNZY5OWBPCL23BJ2VIYMWAZM2OVPYWBMDUSRP7AXUHTYZA2KL2ST3YMPC2CXIJGNRL57RQSQOXJLJ3YKKQ"
@@ -50,13 +50,13 @@
         }
       },
       "apiEndpoint": "https://api.eu.amazonalexa.com",
-      "apiAccessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLmE2YzdmNGRhLTc4OWItNGZjNC05YjE5LWMxN2M3ZjRlZWUzNiIsImV4cCI6MTUyMzYyODI2MCwiaWF0IjoxNTIzNjI0NjYwLCJuYmYiOjE1MjM2MjQ2NjAsInByaXZhdGVDbGFpbXMiOnsiY29uc2VudFRva2VuIjpudWxsLCJkZXZpY2VJZCI6ImFtem4xLmFzay5kZXZpY2UuQUdRNzZGU0ZVSkEzRlJKMjRVMjczMktJVE1ZWVZLUjVOWURBRUw0SElRVDJCRzc1UklNQ0c2WVpVVzZBUjVYWFJFVzY1QURZUEFTNE9PSFVEWTZUQ1lUNUU3UENMRFJINlpYU0VFTFVKT0tGN1FUMlZONFZTWU5EN00zTzc2RDJPWUgzTE1VVVNRV083RFhXRklHUUhGMzJVR1ZRIiwidXNlcklkIjoiYW16bjEuYXNrLmFjY291bnQuQUZFVFlHMlU2VVdVN1lDNFc1Q0szWlVGNVE0QTU0UlhWVVVFSjMzTjZVREwzRVk0M0VURFdERERXMkFJSVJBQVJXSVA2QzZXUDdTWExGTk9QWlRFUkRWSENPUTJJMkFOMlQzRFVLRjVXRlJWTTNWUVpRWVVJSVQ1RUZJWVdZTlpZNU9XQlBDTDIzQkoyVklZTVdBWk0yT1ZQWVdCTURVU1JQN0FYVUhUWVpBMktMMlNUM1lNUEMyQ1hJSkdOUkw1N1JRU1FPWEpMSjNZS0tRIn19.h0EZVUm_J-9oOqzVPOnQ6khRtXBvpmyPBacZKhcS19x4vqLowGHU2JLw68xcUiHpJbOWdO2JAYfOX2MhulHsWz800O_PGqol41wzSCa8Ckx4QrO_RME0QF2NHSeEMZZKvL2-2ixb8xXBobKA1dPZx-gCQ04queLEzqS1gcf33bWDNgHzFXrrxfA3jnqP0fm3M9-NljHUzpt98hUw5ubsGgkhjgUk4RWo3LUpkbtHBx8QQxOPQin12G39NA465HWTMAOgyy5LcvdFbGwPSsUUnRithpAPDM3Vb_hLM834T7VlDd78WuzKQYS3wouZJXXIyHgfz4MAUInlgz1x4gjxOQ"
+      "apiAccessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLmE2YzdmNGRhLTc4OWItNGZjNC05YjE5LWMxN2M3ZjRlZWUzNiIsImV4cCI6MTUyMzYzMjcxNywiaWF0IjoxNTIzNjI5MTE3LCJuYmYiOjE1MjM2MjkxMTcsInByaXZhdGVDbGFpbXMiOnsiY29uc2VudFRva2VuIjpudWxsLCJkZXZpY2VJZCI6ImFtem4xLmFzay5kZXZpY2UuQUdRNzZGU0ZVSkEzRlJKMjRVMjczMktJVE1ZWVZLUjVOWURBRUw0SElRVDJCRzc1UklNQ0c2WVpVVzZBUjVYWFJFVzY1QURZUEFTNE9PSFVEWTZUQ1lUNUU3UENMRFJINlpYU0VFTFVKT0tGN1FUMlZONFZTWU5EN00zTzc2RDJPWUgzTE1VVVNRV083RFhXRklHUUhGMzJVR1ZRIiwidXNlcklkIjoiYW16bjEuYXNrLmFjY291bnQuQUZFVFlHMlU2VVdVN1lDNFc1Q0szWlVGNVE0QTU0UlhWVVVFSjMzTjZVREwzRVk0M0VURFdERERXMkFJSVJBQVJXSVA2QzZXUDdTWExGTk9QWlRFUkRWSENPUTJJMkFOMlQzRFVLRjVXRlJWTTNWUVpRWVVJSVQ1RUZJWVdZTlpZNU9XQlBDTDIzQkoyVklZTVdBWk0yT1ZQWVdCTURVU1JQN0FYVUhUWVpBMktMMlNUM1lNUEMyQ1hJSkdOUkw1N1JRU1FPWEpMSjNZS0tRIn19.MYy6r13IEPpiW-Fuate5geyYaABjOTO-1545rs8h2TOdfjF0fuxU4LDs0hkIHxZvuEKlOtpPoUfxCBED-bC5dAsY80NzMuBwqVhf98jiKkvcPNtJEh7I_VWuiDooBh0aZlQPsYtGYUDtT6oAh-L8feudvjbyJHQ0QOAiLqHh0VJv3Fdwf0k2ePfy_ysXPsmHpRNvtTnnhX1xPRBXsldGfsraVuqGu6Q1fC7I2fRRxVWupFrMkkgI8l7uX5-htA3ZjaO5Opvdav5CzS_giK3u2NsjJHWbQcEb_Q3OJVVbrzovrHCCm8AIAhwcKdjGJ76BxW5yudm3OLJMrDvJkqa6UA"
     }
   },
   "request": {
     "type": "IntentRequest",
-    "requestId": "amzn1.echo-api.request.fb977701-2c82-415c-adfd-a2092d28a128",
-    "timestamp": "2018-04-13T13:05:55Z",
+    "requestId": "amzn1.echo-api.request.8629746e-621a-4a8b-88ee-b5a41d77fd52",
+    "timestamp": "2018-04-13T14:18:37Z",
     "locale": "en-IN",
     "intent": {
       "name": "NumberIntent",
@@ -64,7 +64,7 @@
       "slots": {
         "number": {
           "name": "number",
-          "value": "98",
+          "value": "45",
           "confirmationStatus": "NONE"
         }
       }

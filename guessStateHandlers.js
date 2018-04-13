@@ -1,15 +1,43 @@
 const Alexa = require('./common_libs').Alexa;
 const STATES = require('./common_libs').STATES;
 const MODES = require('./common_libs').MODES;
+const RESULT = require('./common_libs').RESULT;
 const util = require('util')
 
-const speechConsCorrect = ["Booya", "balle balle", "All righty", "Bam", "Bazinga", "Bingo", "Boom", "Bravo", "Cha Ching", "Hip hip hooray", "Hurrah", "Hurray", "Huzzah", "Oh dear.  Just kidding.  Hurray", "Kaboom", "Kaching", "Righto", "Way to go", "Well done", "Whee", "Woo hoo", "Yay", "Wowza", "Yowsa" ];
+const speechConsCorrect = ["balle balle", "All righty", "Bam", "Bazinga", "Bingo", "Boom", "Bravo", "Cha Ching", "Hip hip hooray", "Hurray", "Huzzah", "Oh dear.  Just kidding.  Hurray", "Kaboom", "Kaching", "Righto", "Way to go", "Well done", "Whee", "Woo hoo", "Wowza", "Yowsa" ];
 
-const speechConsWrong = ["Aiyo", "Argh", "Aw man", "Blarg", "Blast", "Boo", "Bummer", "Darn", "D'oh", "Dun dun dun", "Eek", "Honk", "Le sigh", "Mamma mia", "Oh boy", "Oh dear", "Oof", "Ouch", "Ruh roh", "Shucks", "Uh oh", "Wah wah", "Whoops a daisy", "Yikes"]; 
+const speechConsWrong = ["Aiyo", "Argh", "Aw man", "Blarg", "Blast", "Boo", "Bummer", "Darn", "D'oh", "Dun dun dun", "Eek", "Honk", "Le sigh", "Mamma mia", "Oh boy", "Oh dear", "Oof", "Ouch", "Ruh roh", "Shucks", "Uh oh", "Wah wah", "Whoops a daisy"]; 
 
 function randomPhrase(myData) {
     let i = Math.floor(Math.random() * myData.length);
     return (myData[i]);
+}
+
+function getAllIndexes(arr, val) {
+    var indexes = [], i;
+    for (i = 0; i < arr.length; i++)
+        if (arr[i] === val)
+            indexes.push(i);
+    return indexes;
+}
+
+function calculateResults(points, no_players) {
+    let results = {}
+    let pointsArray = Array(no_players).fill(0)
+    for (var player in points) {
+        if (points.hasOwnProperty(player)) {
+            pointsArray[player] = points[player]
+        }
+    }
+
+    let max = Math.max(...pointsArray);
+    let indexes = getAllIndexes(pointsArray, max);
+    
+    results["type"] = indexes.length == 1 ? RESULT.SINGLE_WINNER : RESULT.DRAW;
+    results["max"] = max;
+    results["winners"] = indexes.map(val => val);
+
+    return results;
 }
 
 const guessModeHandlers = Alexa.CreateStateHandler(STATES.GUESSMODE, {
@@ -22,7 +50,7 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.GUESSMODE, {
         this.attributes['current_player'] = 1
 		this.attributes['correct'] = 0
 		let points = {}
-		this.attributes['points'] = JSON.stringify(points);
+        this.attributes['points'] = JSON.stringify(points);
         this.emit(':ask', this.t('START_GAME') + ' ROUND ' + round +'. '+ this.t('SQUARE'))
     },
 
@@ -33,8 +61,9 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.GUESSMODE, {
         var points = this.attributes['points'] ? JSON.parse(this.attributes['points']) : {}
         let round_no = this.attributes['round']
 		let prev_was_correct = this.attributes['correct']
-        let round_completed = '';
+        let round_completed_speech = '';
         let points_speech = ''
+        let winners_speech = ''
 
         if(prev_was_correct == 1)
             prev_speech = util.format(this.t('CORRECT'), randomPhrase(speechConsCorrect), this.attributes['answer']);
@@ -67,27 +96,69 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.GUESSMODE, {
             }
 
             
-			round_completed = util.format(this.t('ROUND_COMPLETED'), round_no);
+			round_completed_speech = util.format(this.t('ROUND_COMPLETED'), round_no);
 
 			for (var player in points) {
 				if (points.hasOwnProperty(player)) {
 					points_speech += util.format(this.t('POINTS'), points[player], parseInt(player));
 				}
-			}
+            }
+            
+            let results = calculateResults(points, this.attributes['players']);
+
+            finalScore = this.attributes['finalScore'] ? JSON.parse(this.attributes['finalScore']) : {};
+
+            for(let i = 0; i < results.winners.length; i++){
+                let player = results.winners[i];
+                finalScore[player] = finalScore[player] ? finalScore[player] + 1 : 1
+            }
+
+            this.attributes['finalScore'] = JSON.stringify(finalScore)
+
+            switch (results.type) {
+                case RESULT.SINGLE_WINNER:
+                    winners_speech = util.format(this.t('SINGLE_WINNER'), results.winners[0], results.max);
+                    break;
+
+                case RESULT.DRAW:
+                    let draw_speech = results.winners.slice(0, results.winners.length - 1).join(', ') + ", and " + results.winners.slice(-1);
+                    winners_speech = util.format(this.t('DRAW'), draw_speech, results.max);
+                    break;
+
+                default:
+                    break;
+            }
 
 			this.attributes['question'] = 1
             this.attributes['current_player'] = 1
             this.attributes['correct'] = 0
 			this.attributes['round']++;
 
-			if (round_no == 3)
-				next_round = util.format(this.t('GAME_FINISHED'), current_player)
-			else{
+			if (round_no == 3){
+                let finalResults = calculateResults(finalScore, this.attributes['players']);
+
+                switch (finalResults.type) {
+                    case RESULT.SINGLE_WINNER:
+                        next_round = util.format(this.t('GAME_FINISHED_WINNER'), finalResults.winners[0]);
+                        break;
+
+                    case RESULT.DRAW:
+                        let draw_speech = finalResults.winners.slice(0, finalResults.winners.length - 1).join(', ') + ", and " + finalResults.winners.slice(-1);
+                        next_round = util.format(this.t('GAME_FINISHED_DRAW'), draw_speech);
+                        break;
+
+                    default:
+                        break;
+                }
+                this.handler.state = STATES.STARTMODE
+            }
+            else
+            {
 				next_round = util.format(this.t('NEXT_ROUND'), this.attributes['round'])
                 this.attributes['mode'] = MODES.ROUND_COMPLETION
                 this.attributes['solved'] = false
             }
-            this.emit(':ask', prev_speech + round_completed + points_speech + next_round)
+            this.emit(':ask', prev_speech + round_completed_speech + points_speech + winners_speech + next_round)
         }
         
     },

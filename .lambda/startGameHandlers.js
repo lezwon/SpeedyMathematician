@@ -15,7 +15,6 @@ const startGameHandlers = Alexa.CreateStateHandler(STATES.STARTMODE, {
     },
 
     'AMAZON.NoIntent': function () {
-        this.response.speak('Ok, see you next time!');
         this.handler.state = STATES.FIRST_USE;
         this.emitWithState('AMAZON.StopIntent');
     },
@@ -23,6 +22,8 @@ const startGameHandlers = Alexa.CreateStateHandler(STATES.STARTMODE, {
     'NumberIntent': function () {
         const no_of_players = parseInt(this.event.request.intent.slots.number.value);
         this.attributes['players'] = no_of_players;
+        this.attributes['round'] = 1;
+        this.attributes['finalScore'] = {};
         this.handler.state = STATES.GUESSMODE;
         this.emitWithState('LaunchIntent');
     },
@@ -37,7 +38,7 @@ const startGameHandlers = Alexa.CreateStateHandler(STATES.STARTMODE, {
         const message = 'Say yes to continue, or no to end the game.';
         this.response.speak(message)
             .listen(message);
-        this.emitWithState(':responseReady');
+        this.emit(':responseReady');
     }
 })
 

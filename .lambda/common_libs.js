@@ -12,7 +12,13 @@ module.exports = {
     MODES: {
         DEFAULT: 0,
         EXPLANATION: 1,
-        ROUND_COMPLETION: 2
+        ROUND_COMPLETION: 2,
+        PLAY_AGAIN: 3
     },
+
+    RESULT: {
+        SINGLE_WINNER: 1,
+        DRAW: 2
+    }
 
 }

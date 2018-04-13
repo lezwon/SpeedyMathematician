@@ -18,8 +18,11 @@ module.exports = {
             ROUND_COMPLETED: "Round %d Completed! The score is ",
             POINTS: "<s>%d points to player %d. </s>",
             NEXT_ROUND: "Are you ready for round %d?",
-            GAME_FINISHED: "GAME FINSHED! And the winner is Player %d. You are crowned a Speedy Mathematician! Congratulations! Do you wish to play again?",
-            BEGIN_GAME: "<say-as interpret-as='interjection'> Cool! </say-as> Here we go then. "
+            GAME_FINISHED_WINNER: "GAME OVER! The overall winner is Player %d. You are crowned a Speedy Mathematician! Congratulations! <s> Do you wish to play again? </s>",
+            GAME_FINISHED_DRAW: "GAME OVER! The overall winners are players %s. Ya'll are crowned Speedy Mathematicians! Congratulations! <s> Do you wish to play again? </s>",
+            BEGIN_GAME: "<say-as interpret-as='interjection'> Cool! </say-as> Here we go then. ",
+            SINGLE_WINNER: "The round goes to Player %d with a total points of %d. ",
+            DRAW: "This round goes to Players %s with a total points of %d each. "
         }
     }
 };

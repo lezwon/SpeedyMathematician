@@ -22,7 +22,9 @@ module.exports = {
             GAME_FINISHED_DRAW: "GAME OVER! The overall winners are players %s. Ya'll are crowned Speedy Mathematicians! Congratulations! <s> Do you wish to play again? </s>",
             BEGIN_GAME: "<say-as interpret-as='interjection'> Cool! </say-as> Here we go then. ",
             SINGLE_WINNER: "The round goes to Player %d with a total points of %d. ",
-            DRAW: "This round goes to Players %s with a total points of %d each. "
+            DRAW: "This round goes to Players %s with a total points of %d each. ",
+            FACTORIAL: "FACT-O-BEE! Let's test how good you are at factorials. I'm gonna give you a number and you will tell me its factorial! You ready or do you need me to explain you how to find the factorial of a number?",
+            TRUEFALSE: "CATCH THE LIE! I have a couple of mathematical statements to make. Some are true, some are false. Point them out, and I take you up the leaderboard. Do I need to tell you how to go about this?",
         }
     }
 };

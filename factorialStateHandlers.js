@@ -8,6 +8,13 @@ const ANSWER_RESULT = require('./common_libs').ANSWER_RESULT;
 const util = require('util')
 
 
+function fact(number) {
+    res = 1
+    while(number)
+        res *= number--
+    return res
+}
+
 const guessModeHandlers = Alexa.CreateStateHandler(STATES.FACTORIAL, {
 
     'LaunchIntent': function () {
@@ -36,25 +43,26 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.FACTORIAL, {
         if (answer_result == ANSWER_RESULT.CORRECT)
             prev_speech = util.format(this.t('CORRECT'), HELPERS.randomPhrase(SPEECHCONS.CORRECT), this.attributes['answer']);
         else if (answer_result == ANSWER_RESULT.INCORRECT)
-            prev_speech = util.format(this.t('WRONG'), HELPERS.randomPhrase(SPEECHCONS.INCORRECT), this.attributes['guessNumber'], this.attributes['number'], this.attributes['answer']);
+            prev_speech = util.format(this.t('WRONG_FACTORIAL'), HELPERS.randomPhrase(SPEECHCONS.INCORRECT), this.attributes['guessNumber'], this.attributes['number'], this.attributes['answer']);
         else
             prev_speech = this.t('BEGIN_GAME');
 
         if (round_no <= 3) {
             if (question_no <= 3) {
                 if (current_player <= this.attributes['players']) {
-                    let number = Math.floor(Math.random() * 10) + 10;
+                    let number = Math.floor(Math.random() * 6) + 4;
                     while (number == this.attributes['number'] || this.attributes['prev_numbers'].includes(number))
-                        number = Math.floor(Math.random() * 10) + 10;
+                        number = Math.floor(Math.random() * 6) + 4;
 
                     this.attributes['prev_numbers'].push(number)
 
-                    let square = Math.pow(number, 2);
-                    let question = util.format(this.t('QUESTION'), question_no, current_player, number);
+                    let factorial = fact(number);
+                    let question = util.format(this.t('QUESTION_FACORIAL'), question_no, current_player, number);
                     this.attributes['number'] = number;
-                    this.attributes['answer'] = square;
+                    this.attributes['answer'] = factorial;
 
                     this.attributes['current_player']++
+                    console.log(prev_speech)
                     this.emit(':ask', prev_speech + question);
                     return;
                 }
@@ -198,7 +206,6 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.FACTORIAL, {
 
                 break;
         }
-
 
     },
 

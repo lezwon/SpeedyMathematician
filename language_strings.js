@@ -27,6 +27,9 @@ module.exports = {
             TRUEFALSE: "CATCH THE LIE! I have a couple of mathematical statements to make. Some are true, some are false. Point them out, and I take you up the leaderboard. Do I need to tell you how to go about this?",
             QUESTION_FACORIAL: "Question %d for Player %d. <s>What is the factorial of %d?</s> ",
             WRONG_FACTORIAL: "<say-as interpret-as='interjection'> %s!</say-as> %d is incorrect. <s>The factorial of %d is %d. </s> ",
+            MODULO: "MODULO MAESTRO! In this round I will ask you the remainder of a modular operation! Do the math quick, and give me the correct answer. Do you want me to explain how to carry out a modulo operation?",
+            QUESTION_MODULO: "Question %d for Player %d. <s>What is the remainder of %d modulo %d</s> ",
+            WRONG_FACTORIAL: "<say-as interpret-as='interjection'> %s!</say-as> %d is incorrect. <s>The remainder of %s is %d. </s> ",
         }
     }
 };

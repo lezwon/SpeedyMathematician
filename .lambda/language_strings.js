@@ -23,10 +23,13 @@ module.exports = {
             BEGIN_GAME: "<say-as interpret-as='interjection'> Cool! </say-as> Here we go then. ",
             SINGLE_WINNER: "The round goes to Player %d with a total points of %d. ",
             DRAW: "This round goes to Players %s with a total points of %d each. ",
-            FACTORIAL: "FACT-O-BEE! Let's test how good you are at factorials. I'm gonna give you a number and you will tell me its factorial! You ready or do you need me to explain you how to find the factorial of a number?",
+            FACTORIAL: "FACT-O-BEE! Let's test how good you are at factorials. I'm gonna give you a number and you will tell me its factorial! Do you need me to explain you how to find the factorial of a number?",
             TRUEFALSE: "CATCH THE LIE! I have a couple of mathematical statements to make. Some are true, some are false. Point them out, and I take you up the leaderboard. Do I need to tell you how to go about this?",
             QUESTION_FACORIAL: "Question %d for Player %d. <s>What is the factorial of %d?</s> ",
             WRONG_FACTORIAL: "<say-as interpret-as='interjection'> %s!</say-as> %d is incorrect. <s>The factorial of %d is %d. </s> ",
+            MODULO: "MODULO MAESTRO! In this round I will ask you the remainder of a modular operation! Do the math quick, and give me the correct answer. Do you want me to explain how to carry out a modulo operation?",
+            QUESTION_MODULO: "Question %d for Player %d. <s>What is the remainder of %d modulo %d</s> ",
+            WRONG_FACTORIAL: "<say-as interpret-as='interjection'> %s!</say-as> %d is incorrect. <s>The remainder of %s is %d. </s> ",
         }
     }
 };

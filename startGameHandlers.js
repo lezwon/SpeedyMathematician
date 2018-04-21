@@ -1,15 +1,7 @@
 const Alexa = require('./common_libs').Alexa;
 const STATES = require('./common_libs').STATES;
-
-function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-}
-
-var rounds = [STATES.SQUARE, STATES.FACTORIAL, STATES.TRUEFALSE];
+const HELPERS = require('./common_libs').HELPERS;
+const ROUNDS = require('./common_libs').ROUNDS;
 
 const startGameHandlers = Alexa.CreateStateHandler(STATES.STARTMODE, {
     'LaunchRequest': function () {
@@ -33,7 +25,7 @@ const startGameHandlers = Alexa.CreateStateHandler(STATES.STARTMODE, {
         this.attributes['players'] = no_of_players;
         this.attributes['round'] = 1;
         this.attributes['finalScore'] = {};
-        this.attributes['roundOrder'] = rounds = shuffle(rounds);
+        this.attributes['roundOrder'] = rounds = HELPERS.shuffle(ROUNDS);
         this.handler.state = rounds[0];
         this.emitWithState('LaunchIntent');
     },

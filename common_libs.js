@@ -8,7 +8,7 @@ const Service =  {
         GUESSMODE: '_GUESSMODE',
         STARTMODE: '_STARTMODE',
         SQUARE: '_SQUARE',
-        FACTORIAL: '_FACTORIAL',
+        MODULO: '_MODULO',
         TRUEFALSE: '_TRUEFALSE'
     },
 
@@ -37,6 +37,14 @@ const Service =  {
 
 
     HELPERS: {
+
+        shuffle: (array) => {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        },
         randomPhrase: function (myData) {
             let i = Math.floor(Math.random() * myData.length);
             return (myData[i]);
@@ -65,5 +73,11 @@ const Service =  {
     }
 
 }
+
+Service.ROUNDS = [
+    Service.STATES.SQUARE,
+    Service.STATES.MODULO,
+    Service.STATES.TRUEFALSE,
+]
 
 module.exports = Service;

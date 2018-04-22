@@ -5,17 +5,12 @@ const RESULT = require('./common_libs').RESULT;
 const SPEECHCONS = require('./common_libs').SPEECHCONS;
 const HELPERS = require('./common_libs').HELPERS;
 const ANSWER_RESULT = require('./common_libs').ANSWER_RESULT;
+const OPERATIONS = require('./common_libs').OPERATIONS;
+const OPERATION_STRING = require('./common_libs').OPERATION_STRING;
 const util = require('util')
 
 
-function fact(number) {
-    res = 1
-    while (number)
-        res *= number--
-    return res
-}
-
-const guessModeHandlers = Alexa.CreateStateHandler(STATES.MODULO, {
+const guessModeHandlers = Alexa.CreateStateHandler(STATES.EQUATION, {
 
     'LaunchIntent': function () {
         let round = this.attributes['round']
@@ -24,9 +19,9 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.MODULO, {
         this.attributes['solved'] = false
         this.attributes['mode'] = MODES.EXPLANATION
         this.attributes['current_player'] = 1
-        this.attributes['answer_result'] = ANSWER_RESULT.UNINITIALIZED
+		this.attributes['answer_result'] = ANSWER_RESULT.UNINITIALIZED
         this.attributes['points'] = {};
-        this.emit(':ask', this.t('START_GAME') + ' ROUND ' + round + '. ' + this.t('MODULO'))
+        this.emit(':ask', this.t('START_GAME') + ' ROUND ' + round + '. ' + this.t('EQUATION'))
     },
 
     'QuestionIntent': function () {
@@ -43,23 +38,68 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.MODULO, {
         if (answer_result == ANSWER_RESULT.CORRECT)
             prev_speech = util.format(this.t('CORRECT'), HELPERS.randomPhrase(SPEECHCONS.CORRECT), this.attributes['answer']);
         else if (answer_result == ANSWER_RESULT.INCORRECT)
-            prev_speech = util.format(this.t('WRONG_FACTORIAL'), HELPERS.randomPhrase(SPEECHCONS.INCORRECT), this.attributes['guessNumber'], this.attributes['number'], this.attributes['answer']);
+            prev_speech = util.format(this.t('WRONG_EQUATION'), HELPERS.randomPhrase(SPEECHCONS.INCORRECT), this.attributes['guessNumber'], this.attributes['number'], this.attributes['answer']);
         else
-            prev_speech = this.t('BEGIN_GAME');
+			prev_speech = this.t('BEGIN_GAME');
 
-        if (round_no <= 3) {
+        if(round_no <= 3){
             if (question_no <= 3) {
                 if (current_player <= this.attributes['players']) {
-                    let operand_1 = Math.floor(Math.random() * 50) + 50;
-                    let operand_2 = Math.floor(Math.random() * 10) + 6;
 
-                    let remainder = operand_1 % operand_2;
-                    let question = util.format(this.t('QUESTION_NO') + this.t('QUESTION_MODULO'), question_no, current_player, operand_1, operand_2);
-                    this.attributes['number'] = util.format('%d modulo %d', operand_1, operand_2);
-                    this.attributes['answer'] = remainder;
+                    let operand_1 = null;
+                    let operand_2 = null;
+                    let operation = null;
 
+                    //random operation
+                    operation = HELPERS.randomPhrase(Object.values(OPERATIONS));
+
+                    //random operands
+                    let upper_limit = 800;
+                    let lower_limit = 100;
+                    let gap = 0;
+
+                    switch (operation) {
+                        case OPERATIONS.ADDTION:
+                            break;
+
+                        case OPERATIONS.SUBTRACTION:
+                            gap = (upper_limit - lower_limit) * 0.5;
+                            break;
+
+                        case OPERATIONS.MULTIPLICATION:
+                            upper_limit = 20;
+                            lower_limit = 3;
+                            gap = (upper_limit - lower_limit) * 0.5;
+                            break;
+
+                        case OPERATIONS.DIVISION:
+                            upper_limit = 500;
+                            lower_limit = 25;
+                            gap = (upper_limit - lower_limit) * 0.3;
+                            break;
+                    
+                        default:
+                            break;
+                    }
+
+                    let answer = null;
+                    let number = null;
+                    
+                    while (!Number.isInteger(answer)) {
+                        operand_1 = Math.floor(Math.random() * (upper_limit - lower_limit - gap) + lower_limit + gap);
+                        operand_2 = Math.floor(Math.random() * (upper_limit - lower_limit - gap) + lower_limit);
+                        number = operand_1 + operation + operand_2
+                        answer = eval(number);
+                    }
+
+                    op = number.split(" ")[1];
+                    number = number.replace(op, OPERATION_STRING[op]);
+
+                    let question = util.format(this.t('QUESTION_NO') + this.t('QUESTION_EQUATION'), question_no, current_player, number);
+                    this.attributes['number'] = number;
+                    this.attributes['answer'] = answer;
+					
                     this.attributes['current_player']++
-                    console.log(prev_speech)
                     this.emit(':ask', prev_speech + question);
                     return;
                 }
@@ -70,20 +110,20 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.MODULO, {
                 return
             }
 
+            
+			round_completed_speech = util.format(this.t('ROUND_COMPLETED'), round_no);
 
-            round_completed_speech = util.format(this.t('ROUND_COMPLETED'), round_no);
-
-            for (var player in points) {
-                if (points.hasOwnProperty(player)) {
-                    points_speech += util.format(this.t('POINTS'), points[player], parseInt(player));
-                }
+			for (var player in points) {
+				if (points.hasOwnProperty(player)) {
+					points_speech += util.format(this.t('POINTS'), points[player], parseInt(player));
+				}
             }
-
+            
             let results = HELPERS.calculateResults(points, this.attributes['players']);
 
             finalScore = this.attributes['finalScore'] ? this.attributes['finalScore'] : {};
 
-            for (let i = 0; i < results.winners.length; i++) {
+            for(let i = 0; i < results.winners.length; i++){
                 let player = results.winners[i];
                 finalScore[player] = finalScore[player] ? finalScore[player] + 1 : 1
             }
@@ -104,12 +144,12 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.MODULO, {
                     break;
             }
 
-            this.attributes['question'] = 1
+			this.attributes['question'] = 1
             this.attributes['current_player'] = 1
             this.attributes['correct'] = 0
-            this.attributes['round']++;
+			this.attributes['round']++;
 
-            if (round_no == 3) {
+			if (round_no == 3){
                 let finalResults = HELPERS.calculateResults(finalScore, this.attributes['players']);
 
                 switch (finalResults.type) {
@@ -127,14 +167,15 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.MODULO, {
                 }
                 this.handler.state = STATES.STARTMODE
             }
-            else {
-                next_round = util.format(this.t('NEXT_ROUND'), this.attributes['round'])
+            else
+            {
+				next_round = util.format(this.t('NEXT_ROUND'), this.attributes['round'])
                 this.attributes['mode'] = MODES.ROUND_COMPLETION
                 this.attributes['solved'] = false
             }
             this.emit(':ask', prev_speech + round_completed_speech + points_speech + winners_speech + next_round)
         }
-
+        
     },
 
     'AMAZON.YesIntent': function () {
@@ -145,7 +186,7 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.MODULO, {
             case MODES.EXPLANATION:
                 if (!solved) {
                     this.attributes['solved'] = true
-                    this.emit(':ask', this.t('MODULO_EXPLAIN'));
+                    this.emit(':ask', this.t('EQUATION_EXPLAIN'));
                 }
                 else {
                     this.emitWithState('QuestionIntent')
@@ -164,19 +205,19 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.MODULO, {
                     this.emit(':tell', this.t('GOODBYE'));
                 }
                 break;
-
+        
             default:
 
                 break;
-        }
+        }   
 
-
+        
     },
 
     'AMAZON.NoIntent': function () {
 
         let solved = this.attributes['solved']
-
+        
         switch (this.attributes['mode']) {
             case MODES.EXPLANATION:
                 if (solved) {
@@ -204,6 +245,7 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.MODULO, {
                 break;
         }
 
+        
     },
 
     'NumberIntent': function () {
@@ -240,15 +282,15 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.MODULO, {
     },
 
     'AMAZON.CancelIntent': function () {
-        this.handler.state = STATES.FIRST_USE;
-        delete this.attributes['STATE'];
-        this.emitWithState('AMAZON.StopIntent');
+		this.handler.state = STATES.FIRST_USE;
+		delete this.attributes['STATE'];
+		this.emitWithState('AMAZON.StopIntent');
     },
 
     'AMAZON.StopIntent': function () {
-        this.handler.state = STATES.FIRST_USE;
-        delete this.attributes['STATE'];
-        this.emitWithState('AMAZON.StopIntent');
+		this.handler.state = STATES.FIRST_USE;
+		delete this.attributes['STATE'];
+		this.emitWithState('AMAZON.StopIntent');
     }
 });
 

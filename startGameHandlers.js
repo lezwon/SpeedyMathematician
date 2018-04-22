@@ -22,6 +22,12 @@ const startGameHandlers = Alexa.CreateStateHandler(STATES.STARTMODE, {
 
     'NumberIntent': function () {
         const no_of_players = parseInt(this.event.request.intent.slots.number.value);
+
+        if(no_of_players < 1)
+        {
+            this.emit(':ask', this.t('INVALID_PLAYERS'));
+        }
+
         this.attributes['players'] = no_of_players;
         this.attributes['round'] = 1;
         this.attributes['finalScore'] = {};

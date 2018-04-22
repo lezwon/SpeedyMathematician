@@ -9,7 +9,21 @@ const Service =  {
         STARTMODE: '_STARTMODE',
         SQUARE: '_SQUARE',
         MODULO: '_MODULO',
-        TRUEFALSE: '_TRUEFALSE'
+        EQUATION: '_EQUATION'
+    },
+
+    OPERATION_STRING: {
+        '+': "plus",
+        '-': "minus",
+        '*': "times",
+        '/': "divided by"
+    },
+
+    OPERATIONS: {
+        ADDTION: " + ",
+        SUBTRACTION: " - ",
+        MULTIPLICATION: " * ",
+        DIVISION: " / "
     },
 
     MODES: {
@@ -77,7 +91,7 @@ const Service =  {
 Service.ROUNDS = [
     Service.STATES.SQUARE,
     Service.STATES.MODULO,
-    Service.STATES.TRUEFALSE,
+    Service.STATES.EQUATION,
 ]
 
 module.exports = Service;

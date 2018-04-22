@@ -50,7 +50,7 @@ const guessModeHandlers = Alexa.CreateStateHandler(STATES.SQUARE, {
                     this.attributes['prev_numbers'].push(number)
 
                     let square = Math.pow(number, 2);
-                    let question = util.format(this.t('QUESTION'), question_no, current_player, number);
+                    let question = util.format(this.t('QUESTION_NO') + this.t('QUESTION_SQUARE'), question_no, current_player, number);
                     this.attributes['number'] = number;
                     this.attributes['answer'] = square;
 					

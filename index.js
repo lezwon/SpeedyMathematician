@@ -2,7 +2,7 @@ const Alexa = require('./common_libs').Alexa;
 const STATES = require('./common_libs').STATES;
 const startGameHandlers = require('./startGameHandlers')
 const squareStateHandlers = require('./squareStateHandlers')
-const truefalseStateHandlers = require('./truefalseStateHandlers')
+const equationStateHandlers = require('./equationStateHandlers')
 const moduloStateHandlers = require('./moduloStateHandlers')
 const languageStrings = require('./language_strings')
 
@@ -17,7 +17,7 @@ const defaultHandler = {
 }
 
 let handlers = [
-    startGameHandlers, defaultHandler, squareStateHandlers, truefalseStateHandlers, moduloStateHandlers
+    startGameHandlers, defaultHandler, squareStateHandlers, equationStateHandlers, moduloStateHandlers
 ];
 
 
